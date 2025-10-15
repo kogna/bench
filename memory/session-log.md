@@ -60,7 +60,7 @@
 ---
 
 ## Session Log Guidelines
-- Keep last 5-10 sessions for context
+- Keep last 5-10 sessions for context and ARCHIVE older sessions (NEVER DELETE WITHOUT BACKUP TO AN APPROVED ARCHIVE)
 - Include key decisions and outcomes
 - Note what worked well vs. what didn't
 - Archive older sessions when log gets too long
