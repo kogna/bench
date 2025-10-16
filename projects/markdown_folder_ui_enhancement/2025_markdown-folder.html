@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Folder - Header Outlining Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #9ca3af;
+        }
+
+        .controls {
+            background: #2a2a2a;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .file-upload {
+            margin-bottom: 20px;
+        }
+
+        .file-upload-label {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .file-upload-label:hover {
+            background: #2563eb;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .filename-display {
+            margin-top: 10px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .view-modes {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .view-mode-btn {
+            padding: 10px 20px;
+            background: #374151;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .view-mode-btn:hover {
+            background: #4b5563;
+        }
+
+        .view-mode-btn.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .utility-btns {
+            display: flex;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #404040;
+        }
+
+        .utility-btn {
+            padding: 8px 16px;
+            background: #1f2937;
+            color: #9ca3af;
+            border: 1px solid #404040;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .utility-btn:hover {
+            background: #374151;
+            color: #e0e0e0;
+        }
+
+        .content {
+            background: #2a2a2a;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            padding: 30px;
+            min-height: 400px;
+        }
+
+        .drop-zone {
+            border: 2px dashed #4b5563;
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        .drop-zone.dragover {
+            border-color: #3b82f6;
+            background: #1f2937;
+        }
+
+        /* Header Styles */
+        .h1-header {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .h1-header:first-child {
+            margin-top: 0;
+        }
+
+        .h2-header {
+            font-size: 22px;
+            font-weight: bold;
+            color: #60a5fa;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #60a5fa;
+            cursor: pointer;
+            font-size: 16px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .toggle-btn:hover {
+            color: #93c5fd;
+        }
+
+        .toggle-btn.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        .content-block {
+            margin-left: 40px;
+            color: #d1d5db;
+        }
+
+        .content-block.hidden {
+            display: none;
+        }
+
+        .content-block p {
+            margin-bottom: 10px;
+        }
+
+        .content-block ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .content-block li {
+            margin-bottom: 6px;
+        }
+
+        .content-block strong {
+            color: #10b981;
+        }
+
+        .content-block code {
+            background: #1f2937;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .view-modes {
+                flex-direction: column;
+            }
+
+            .view-mode-btn {
+                width: 100%;
+            }
+
+            .h1-header {
+                font-size: 22px;
+            }
+
+            .h2-header {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📁 Markdown Folder</h1>
+            <p>Header-based outline viewer for your markdown files</p>
+        </div>
+
+        <div class="controls">
+            <div class="file-upload">
+                <label class="file-upload-label">
+                    📂 Open Markdown File
+                    <input type="file" id="fileInput" accept=".md,.markdown,.txt">
+                </label>
+                <div class="filename-display" id="filenameDisplay"></div>
+            </div>
+
+            <div class="view-modes">
+                <button class="view-mode-btn active" data-mode="selective">
+                    🎯 Selective (Start Collapsed)
+                </button>
+                <button class="view-mode-btn" data-mode="outline">
+                    📋 Show All Headers
+                </button>
+                <button class="view-mode-btn" data-mode="all">
+                    📖 Expand Everything
+                </button>
+            </div>
+
+            <div class="utility-btns">
+                <button class="utility-btn" id="expandAllBtn">↓ Expand All Sections</button>
+                <button class="utility-btn" id="collapseAllBtn">↑ Collapse All Sections</button>
+            </div>
+        </div>
+
+        <div class="content" id="content">
+            <div class="drop-zone" id="dropZone">
+                <h3>Drop a markdown file here</h3>
+                <p>or use the "Open Markdown File" button above</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let currentMode = 'selective';
+        let expandedSections = new Set();
+        let parsedContent = null;
+
+        // DOM elements
+        const fileInput = document.getElementById('fileInput');
+        const filenameDisplay = document.getElementById('filenameDisplay');
+        const contentDiv = document.getElementById('content');
+        const dropZone = document.getElementById('dropZone');
+        const viewModeBtns = document.querySelectorAll('.view-mode-btn');
+        const expandAllBtn = document.getElementById('expandAllBtn');
+        const collapseAllBtn = document.getElementById('collapseAllBtn');
+
+        // File handling
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleFile(file);
+        });
+
+        // Drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) handleFile(file);
+        });
+
+        async function handleFile(file) {
+            filenameDisplay.textContent = `📄 ${file.name}`;
+            const text = await file.text();
+            parseAndRender(text);
+        }
+
+        // Parsing function
+        function parseMarkdown(markdown) {
+            const lines = markdown.split('\n');
+            const structure = [];
+            let currentH1 = null;
+            let currentH2 = null;
+            let contentBuffer = [];
+
+            function flushContent(parent) {
+                if (contentBuffer.length > 0) {
+                    parent.content.push({
+                        type: 'content',
+                        text: contentBuffer.join('\n')
+                    });
+                    contentBuffer = [];
+                }
+            }
+
+            lines.forEach((line, index) => {
+                const trimmed = line.trim();
+
+                // H1 detection
+                if (trimmed.match(/^# [^#]/)) {
+                    if (currentH2) flushContent(currentH2);
+                    if (currentH1) flushContent(currentH1);
+                    
+                    currentH1 = {
+                        type: 'h1',
+                        id: `h1-${index}`,
+                        text: trimmed.replace(/^#\s*/, ''),
+                        content: []
+                    };
+                    structure.push(currentH1);
+                    currentH2 = null;
+                }
+                // H2 detection
+                else if (trimmed.startsWith('##') && !trimmed.startsWith('###')) {
+                    if (currentH2) flushContent(currentH2);
+                    if (!currentH1) {
+                        // Create implicit H1 if H2 appears first
+                        currentH1 = {
+                            type: 'h1',
+                            id: `h1-implicit-${index}`,
+                            text: 'Content',
+                            content: []
+                        };
+                        structure.push(currentH1);
+                    }
+                    
+                    currentH2 = {
+                        type: 'h2',
+                        id: `h2-${index}`,
+                        text: trimmed.replace(/^##\s*/, ''),
+                        content: []
+                    };
+                    currentH1.content.push(currentH2);
+                }
+                // Regular content
+                else if (trimmed) {
+                    if (currentH2) {
+                        contentBuffer.push(line);
+                    } else if (currentH1) {
+                        contentBuffer.push(line);
+                    }
+                }
+                // Empty lines
+                else {
+                    if (contentBuffer.length > 0) {
+                        contentBuffer.push(line);
+                    }
+                }
+            });
+
+            // Flush remaining content
+            if (currentH2) flushContent(currentH2);
+            if (currentH1) flushContent(currentH1);
+
+            return structure;
+        }
+
+        function parseAndRender(markdown) {
+            parsedContent = parseMarkdown(markdown);
+            expandedSections.clear();
+            render();
+        }
+
+        function render() {
+            if (!parsedContent) return;
+
+            let html = '';
+
+            parsedContent.forEach(h1 => {
+                const h1Expanded = expandedSections.has(h1.id);
+                const showH1Content = currentMode === 'all' || 
+                                     (currentMode === 'selective' && h1Expanded) ||
+                                     (currentMode === 'outline' && h1Expanded);
+
+                // H1 Header (always show)
+                html += `<div class="h1-header">`;
+                // Show toggle button in both selective and outline modes
+                if (currentMode === 'selective' || currentMode === 'outline') {
+                    html += `<button class="toggle-btn ${h1Expanded ? '' : 'collapsed'}" onclick="toggleSection('${h1.id}')">▼</button>`;
+                }
+                html += `${h1.text}</div>`;
+
+                // In selective mode, only show content below H1 if H1 is expanded
+                // In outline mode, always show H2s but respect H1 expansion for content
+                // In all mode, show everything
+                const showH1Children = currentMode === 'all' || 
+                                      currentMode === 'outline' || 
+                                      (currentMode === 'selective' && h1Expanded);
+
+                if (!showH1Children) {
+                    return; // Skip all content under this H1
+                }
+
+                // H1 direct content (non-H2 content)
+                const directContent = h1.content.filter(item => item.type === 'content');
+                if (showH1Content && directContent.length > 0 && currentMode !== 'outline') {
+                    html += `<div class="content-block">`;
+                    directContent.forEach(item => {
+                        html += formatContent(item.text);
+                    });
+                    html += `</div>`;
+                }
+
+                // H2 children
+                const h2Items = h1.content.filter(item => item.type === 'h2');
+                h2Items.forEach(h2 => {
+                    const h2Expanded = expandedSections.has(h2.id);
+                    const showH2Content = currentMode === 'all' || 
+                                         ((currentMode === 'selective' || currentMode === 'outline') && h2Expanded);
+
+                    // H2 Header
+                    html += `<div class="h2-header">`;
+                    // Show toggle button in both selective and outline modes
+                    if (currentMode === 'selective' || currentMode === 'outline') {
+                        html += `<button class="toggle-btn ${h2Expanded ? '' : 'collapsed'}" onclick="toggleSection('${h2.id}')">▼</button>`;
+                    }
+                    html += `${h2.text}</div>`;
+
+                    // H2 content (only show if not in outline mode, or if outline mode and expanded)
+                    if (showH2Content && h2.content.length > 0 && currentMode !== 'outline') {
+                        html += `<div class="content-block">`;
+                        h2.content.forEach(item => {
+                            if (item.type === 'content') {
+                                html += formatContent(item.text);
+                            }
+                        });
+                        html += `</div>`;
+                    }
+                });
+            });
+
+            contentDiv.innerHTML = html || '<div class="empty-state">No content to display</div>';
+        }
+
+        function formatContent(text) {
+            // Basic markdown formatting
+            let formatted = text;
+            
+            // Split into lines for list handling
+            const lines = formatted.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                
+                // Bullet points
+                if (trimmed.match(/^[*-]\s/)) {
+                    if (!inList) {
+                        html += '<ul>';
+                        inList = true;
+                    }
+                    html += `<li>${trimmed.replace(/^[*-]\s/, '')}</li>`;
+                } else {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    if (trimmed) {
+                        html += `<p>${trimmed}</p>`;
+                    }
+                }
+            });
+
+            if (inList) html += '</ul>';
+
+            // Bold text
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Inline code
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+            return html;
+        }
+
+        function toggleSection(id) {
+            if (expandedSections.has(id)) {
+                expandedSections.delete(id);
+            } else {
+                expandedSections.add(id);
+            }
+            render();
+        }
+
+        // View mode switching
+        viewModeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                viewModeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const newMode = btn.dataset.mode;
+                
+                // When switching to outline mode, expand all H1s so all H2s are visible
+                if (newMode === 'outline' && parsedContent) {
+                    parsedContent.forEach(h1 => {
+                        expandedSections.add(h1.id);
+                    });
+                }
+                
+                currentMode = newMode;
+                render();
+            });
+        });
+
+        // Utility buttons
+        expandAllBtn.addEventListener('click', () => {
+            if (!parsedContent) return;
+            expandedSections.clear();
+            parsedContent.forEach(h1 => {
+                expandedSections.add(h1.id);
+                h1.content.forEach(item => {
+                    if (item.type === 'h2') {
+                        expandedSections.add(item.id);
+                    }
+                });
+            });
+            render();
+        });
+
+        collapseAllBtn.addEventListener('click', () => {
+            expandedSections.clear();
+            render();
+        });
+
+        // Make toggleSection globally available
+        window.toggleSection = toggleSection;
+    </script>
+</body>
+</html>
