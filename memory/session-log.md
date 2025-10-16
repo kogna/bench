@@ -1,5 +1,46 @@
 # Session Log - Recent Activity
 
+## 2025-10-15 17:04 - Agent Protocols Research & Setup (Comet + GitHub + Perplexity)
+**Duration**: ~35 minutes  
+**Focus**: Initialize protocol research, generate reports, and capture deep research output
+
+**User Prompts Executed (exact wording):**
+1. "Hi You are https://github.com/kogna/bench/blob/main/memory/agent_identity.md and I am https://github.com/kogna/bench/blob/main/principal_identity.md and we will collaborate on a project. First, let's be sure everything is setup for work. 1) Please tell me: Who are you and what do you see in the /bench repo we are using? 2) What do you see in particular about the outline project setup for agent protocols and what are some next steps for that project (hint - we will do some research and setup some more background materials among the other tasks)."
+2. "GOOD! Ok, one more setup task. Please look at the open tabs and tell me how many there are and give me a concise summary of the contents in each open tab please."
+3. "Great! Ok, not please look in the 10-15-B directory (that is actually a project directory for today with relevant info in it we need for our work together) and tell me 1) each file by filename, and 2) include a concise description of the FULL CONTENT of each file after its filename."
+4. "PERFECT! YOUR TASK: I need a new research report on each of the named protocols in a new file to be named protocol_info.md in the project folder for this webinar. Please 1) get relevant info from the files in the open tab and 2) propose some searches or DEEP RESEARCH we can do next in order to get to the deeper understanding and implications of these protocols to help me prep for this panel. 3) add the new file to the repo and 4) show me the deeper next step prompts I need to use with Perplexity to go to next steps as per item 2."
+5. "Good! Now look at the new tab I opened with Perplexity set to the 'Deep Research' mode. Do you see it? If so, can you a) start a Deep Research process and then b) use your file tools to copy the output (verbatim) into a new file you comit to the project directory for this webinar named deep_research_01.md please?"
+6. "Good work! For the moment, please just update 1) the project scratch pad including the next steps you recommend and 2) the longer term memory via the session log with DETAILED INFO on my exact prompts and summaries of your tool calls and process and results, here: https://github.com/kogna/bench/blob/main/memory/session-log.md"
+
+**Tools Used & Calls Summary:**
+- GitHub MCP: get_file_contents to read memory/agent_identity.md [1], principal_identity.md [2], README.md [3], project files scope.md [4], scratchpad.md [5]
+- Browser: search_browser active tabs (found 3; Perplexity, local Dropbox dir, Telegram) [1-3]
+- Browser: get_full_page_content + control_browser to enumerate local directory and open files (overviews.md, webinar PDF, z_Protocol-and-Skyfire-Context.md) [4]
+- GitHub MCP: create_or_update_file → projects/agent_protocols/protocol_info.md (commit 8446139) with consolidated protocol analysis
+- Browser: control_browser to start Perplexity Deep Research with the technical analysis prompt and copy output
+- GitHub MCP: create_or_update_file → projects/agent_protocols/deep_research_01.md (commit 5996771) with verbatim Deep Research output
+- GitHub MCP: create_or_update_file → updated projects/agent_protocols/scratchpad.md (commit fc32a19) with next steps and outline
+
+**Key Results & Artifacts:**
+- protocol_info.md created with protocol profiles, competitive matrix, and research gaps  
+  Link: projects/agent_protocols/protocol_info.md (commit 8446139)
+- deep_research_01.md created with verbatim technical deep research output  
+  Link: projects/agent_protocols/deep_research_01.md (commit 5996771)
+- scratchpad.md updated with immediate next actions, outline, and panel questions  
+  Link: projects/agent_protocols/scratchpad.md (commit fc32a19)
+
+**Process Notes:**
+- Used local file tab to capture three source documents directly for synthesis
+- Executed Perplexity Deep Research in Technical mode; captured entire output verbatim for traceability
+- Separated synthesized report from raw research to keep clean workflow
+
+**Next Recommended Steps:**
+- Run Deep Research #02 (business/adoption), #03 (regulatory/legal), #04 (ecosystem/interoperability) and save verbatim outputs
+- Draft panel_questions.md based on syntheses and deep research highlights
+- Begin outline.md and slide scaffold, tied to concrete case studies/demos
+
+---
+
 ## 2025-10-15 16:08 - Principal Identity Research & Completion Session
 **Duration**: ~1 hour  
 **Focus**: Comprehensive research and completion of principal_identity.md file  
