@@ -178,3 +178,9 @@ Three major protocol frameworks are competing to standardize how AI agents condu
 
 **Status**: Foundation research complete. Ready for targeted deep-dive investigation.
 **Next Phase**: Execute comprehensive research queries to fill knowledge gaps and prepare panel talking points.
+
+---
+
+## Change Log
+- 2025-10-21: Added Mastercard Agent Pay Merchant Acceptance Framework details (no‑code posture; pre‑transaction agent registration/authentication; scale/ease framing). Commit: 8e992ea2.
+- 2025-10-21: Expanded Visa section to include Trusted Agent Protocol with Cloudflare Web Bot Auth foundation, three core capabilities, no‑code merchant integration, partner list, availability, and complementary positioning. PR #5 / commit 6c7a929.
