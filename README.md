@@ -2,7 +2,7 @@
 
 Simple, focused workspace for AI-assisted projects with persistent memory.
 
-## Repository Structure
+## Repository Structure 
 
 ```
 kogna/bench/
