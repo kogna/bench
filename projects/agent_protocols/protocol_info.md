@@ -50,11 +50,13 @@ Three major protocol frameworks are competing to standardize how AI agents condu
 
 **Architecture Advantage**: No technical lock-in, no proprietary protocols, merchant-centric design allows implementation without OpenAI/Stripe dependency
 
-### 3. Visa Intelligent Commerce Platform
+### 3. Visa Agent Commerce Solutions
 
-**Vision**: AI-ready payment infrastructure with built-in fraud protection  
-**Status**: Live production system (launched April 2025)  
+**Vision**: Comprehensive AI-ready payment infrastructure with built-in fraud protection and merchant acceptance framework
+**Status**: Live production system (Intelligent Commerce launched April 2025, Trusted Agent Protocol October 2025)
 **License**: Proprietary API platform
+
+#### Visa Intelligent Commerce Platform
 
 **Technical Architecture - Five Integrated APIs**:
 1. **AI-Ready Tokenized Credentials**: Agent-specific payment tokens replacing card details
@@ -65,11 +67,26 @@ Three major protocol frameworks are competing to standardize how AI agents condu
 
 **Scale**: 4.8 billion payment credentials, 150 million merchant locations, 14,500+ financial institutions across 200+ countries
 
-**Key Partners**: Anthropic (MCP integration), IBM, Microsoft, Mistral AI, OpenAI, Perplexity, Samsung, Stripe
-
 **Fraud Protection**: Built on 30 years of Visa AI fraud detection (blocked $40B fraud in 2024)
 
-**Differentiation**: Embeds payment capabilities directly into existing AI agents rather than requiring new protocol layer
+#### Visa Trusted Agent Protocol
+
+**Technical Foundation**: Built on Cloudflare's Web Bot Auth technology (developed collaboratively with Microsoft, Shopify, Checkout.com, Worldpay, Adyen)
+
+**Three Core Capabilities**:
+1. **Signaling Agent Intent**: Identifying when agents have purchase intent
+2. **Recognizing Consumers Behind Agents**: Verifying shopper authorization
+3. **Transmitting Payment Credentials**: Secure credential delivery with reduced checkout friction
+
+**Merchant Integration**: No-code functionality for merchants to securely identify and verify trusted AI agents, distinguishing legitimate agents from malicious bots
+
+**Availability**: Live on Visa Developer Center and GitHub (October 2025)
+
+**Key Partners**: Microsoft, Nuvei, Shopify, Stripe, Worldpay, plus broader ecosystem including Anthropic (MCP integration), IBM, Mistral AI, OpenAI, Perplexity, Samsung
+
+**Positioning**: Complementary to industry protocols (AP2, ACP, x402) - provides merchant acceptance layer that works alongside agent protocol standards
+
+**Differentiation**: Dual approach combining payment infrastructure (Intelligent Commerce Platform) with merchant-facing agent acceptance framework (Trusted Agent Protocol)
 
 ---
 
