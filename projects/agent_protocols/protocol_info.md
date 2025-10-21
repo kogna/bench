@@ -99,8 +99,9 @@ Three major protocol frameworks are competing to standardize how AI agents condu
 
 ### Mastercard Agent Pay
 - **Creators**: Mastercard
-- **Partners**: Microsoft, IBM, SRC standards alliance, major banks, retailers
-- **Focus**: Enterprise and retail agent payment processing
+- **Framework Name**: Agent Pay Merchant Acceptance Framework (October 2025)
+- **Posture**: No‑code merchant acceptance; registers/authenticates AI agents pre‑transaction so merchants can interact with trusted agents at scale
+- **Focus**: Enterprise and retail agent payment processing; emphasizes ease, interoperability, and partnership ecosystem
 
 ### Additional Standards
 - **x402 Protocol**: Industry-wide open standards (Orium leadership)
